@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint:check": "next lint",
+    "lint": "next lint --fix",
+    "format:check": "prettier --check \"**/*\"",
+    "format": "prettier --write \"**/*\"",
+    "pr:check": "pnpm run lint:check && pnpm run format:check",
+    "pr": "pnpm run lint:fix && pnpm run format:fix"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -22,8 +27,11 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^8.6.0",
     "eslint": "^8",
     "eslint-config-next": "14.2.12",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.3.3",
     "typescript": "^5"
   }
 }

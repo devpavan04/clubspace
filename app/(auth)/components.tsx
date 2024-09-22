@@ -4,7 +4,11 @@ import React, { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { registerSchema, loginSchema } from '@/app/(auth)/schema';
-import { OnSubmitActionResponse, RegisterFormData, LoginFormData } from '@/app/(auth)/types';
+import {
+  OnSubmitActionResponse,
+  RegisterFormData,
+  LoginFormData,
+} from '@/app/(auth)/types';
 import toast from 'react-hot-toast';
 import { Text, Button, Flex, TextField, Card } from '@radix-ui/themes';
 import Link from 'next/link';
@@ -14,7 +18,9 @@ interface RegisterFormProps {
   onSubmitAction: (data: RegisterFormData) => Promise<OnSubmitActionResponse>;
 }
 
-export const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmitAction }) => {
+export const RegisterForm: React.FC<RegisterFormProps> = ({
+  onSubmitAction,
+}) => {
   const [isPending, startTransition] = useTransition();
 
   const {
@@ -50,7 +56,10 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmitAction }) =>
 
   return (
     <Card style={{ padding: '1.6rem' }} variant='surface'>
-      <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
+      >
         <Flex direction='column' gap='5' as='div'>
           {/* Form Type */}
           <Text size='6' weight='bold'>
@@ -62,7 +71,12 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmitAction }) =>
             <Text size='3' weight='medium' as='label'>
               Email
             </Text>
-            <TextField.Root size='3' placeholder='johndoe@example.com' {...register('email')} type='email' />
+            <TextField.Root
+              size='3'
+              placeholder='johndoe@example.com'
+              {...register('email')}
+              type='email'
+            />
             {errors.email?.message && (
               <Text size='2' color='red'>
                 {errors.email.message}
@@ -74,7 +88,12 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmitAction }) =>
             <Text size='3' weight='medium' as='label'>
               Password
             </Text>
-            <TextField.Root size='3' placeholder='********' {...register('password')} type='password' />
+            <TextField.Root
+              size='3'
+              placeholder='********'
+              {...register('password')}
+              type='password'
+            />
             {errors.password?.message && (
               <Text size='2' color='red'>
                 {errors.password.message}
@@ -138,7 +157,10 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmitAction }) => {
 
   return (
     <Card style={{ padding: '1.6rem' }} variant='surface'>
-      <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
+      >
         <Flex direction='column' gap='5' as='div'>
           {/* Form Type */}
           <Text size='6' weight='bold'>
@@ -150,7 +172,12 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmitAction }) => {
             <Text size='3' weight='medium' as='label'>
               Email
             </Text>
-            <TextField.Root size='3' placeholder='johndoe@example.com' {...register('email')} type='email' />
+            <TextField.Root
+              size='3'
+              placeholder='johndoe@example.com'
+              {...register('email')}
+              type='email'
+            />
             {errors.email?.message && (
               <Text size='2' color='red'>
                 {errors.email.message}
@@ -162,7 +189,12 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmitAction }) => {
             <Text size='3' weight='medium' as='label'>
               Password
             </Text>
-            <TextField.Root size='3' placeholder='********' {...register('password')} type='password' />
+            <TextField.Root
+              size='3'
+              placeholder='********'
+              {...register('password')}
+              type='password'
+            />
             {errors.password?.message && (
               <Text size='2' color='red'>
                 {errors.password.message}

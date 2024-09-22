@@ -1,9 +1,16 @@
 'use server';
 
-import { RegisterFormData, LoginFormData, OnSubmitActionResponse } from '@/app/(auth)/types';
+import {
+  RegisterFormData,
+  LoginFormData,
+  OnSubmitActionResponse,
+} from '@/app/(auth)/types';
 
 // Register Action
-export async function register({ email, password }: RegisterFormData): Promise<OnSubmitActionResponse> {
+export async function register({
+  email,
+  password,
+}: RegisterFormData): Promise<OnSubmitActionResponse> {
   try {
     await new Promise((resolve) => {
       setTimeout(() => {
@@ -24,7 +31,10 @@ export async function register({ email, password }: RegisterFormData): Promise<O
 }
 
 // Login Action
-export async function login({ email, password }: LoginFormData): Promise<OnSubmitActionResponse> {
+export async function login({
+  email,
+  password,
+}: LoginFormData): Promise<OnSubmitActionResponse> {
   try {
     await new Promise((resolve) => {
       setTimeout(() => {

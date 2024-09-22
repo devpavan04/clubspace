@@ -1,0 +1,55 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+
+# Cache directories
+.cache/
+.eslintcache
+
+# Configuration files
+*.config.js
+*.config.ts
+
+# Test coverage output
+coverage/
+
+# Environment files
+.env*
+
+# Public assets
+public/
+
+# Type declaration files
+*.d.ts
+
+# Specific file types you might want to ignore
+*.min.js
+*.bundle.js
+
+# Markdown files (if you're not linting them)
+*.md
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# IDE/Editor folders
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Specific to your project (if any)
+.gitignore
+.prettierignore
+.eslintignore

@@ -18,7 +18,9 @@ export default function AuthLayout({
         <Text size='9' weight='bold' className={archivoNarrow.className}>
           clubspace.
         </Text>
-        <Text size='4'>One platform, uniting campus clubs, creating community!</Text>
+        <Text size='4'>
+          One platform, uniting campus clubs, creating community!
+        </Text>
       </Flex>
       {children}
     </Box>
