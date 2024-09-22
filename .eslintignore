@@ -53,3 +53,5 @@ Thumbs.db
 .gitignore
 .prettierignore
 .eslintignore
+
+.github/

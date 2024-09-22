@@ -60,3 +60,5 @@ yarn.lock
 .gitignore
 .prettierignore
 .eslintignore
+
+.github/
