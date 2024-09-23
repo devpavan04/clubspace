@@ -103,12 +103,12 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 
           {/* Form Actions */}
           <Button size='3' disabled={(isSubmitted && !isValid) || isPending}>
-            Register
+            Sign up
           </Button>
 
           {/* Form Footer */}
           <Text size='3' align='center'>
-            Already have an account? <Link href='/login'>Login</Link>
+            Already have an account? <Link href='/login'>Sign in</Link>
           </Text>
         </Flex>
       </form>
@@ -204,7 +204,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmitAction }) => {
 
           {/* Form Actions */}
           <Button size='3' disabled={(isSubmitted && !isValid) || isPending}>
-            Login
+            Sign in
           </Button>
 
           {/* Form Footer */}
