@@ -10,8 +10,8 @@
     "lint": "next lint --fix",
     "format:check": "prettier --check \"**/*\"",
     "format": "prettier --write \"**/*\"",
-    "pr:check": "pnpm run lint:check && pnpm run format:check",
-    "pr": "pnpm run lint:fix && pnpm run format:fix"
+    "pr-ready:check": "pnpm run lint:check && pnpm run format:check",
+    "pr-ready": "pnpm run lint && pnpm run format"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
