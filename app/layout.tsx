@@ -15,10 +15,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body style={{ margin: 0 }}>
+      <body style={{ margin: '0', padding: '0' }}>
         <Theme accentColor='violet' panelBackground='solid' radius='medium'>
-          <Container size='4'>
-            <Toaster position='top-center' reverseOrder={false} />
+          <Toaster position='top-center' reverseOrder={false} />
+          <Container
+            size={{
+              initial: '1',
+              sm: '2',
+              lg: '4',
+            }}
+          >
             {children}
           </Container>
         </Theme>

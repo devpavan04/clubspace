@@ -13,16 +13,24 @@ export default function AuthLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Box style={{ maxWidth: '500px', margin: '20rem auto' }}>
-      <Flex direction='column' gap='3' style={{ marginBottom: '1.6rem' }}>
-        <Text size='9' weight='bold' className={archivoNarrow.className}>
-          clubspace.
-        </Text>
-        <Text size='4'>
-          One platform, uniting campus clubs, creating community!
-        </Text>
-      </Flex>
-      {children}
-    </Box>
+    <Flex justify='center' align='center' minHeight='100vh'>
+      <Box
+        width={{
+          initial: '400px',
+          sm: '500px',
+          lg: '600px',
+        }}
+      >
+        <Flex direction='column' gap='3' mb='6'>
+          <Text size='9' weight='bold' className={archivoNarrow.className}>
+            clubspace.
+          </Text>
+          <Text size='4'>
+            One platform, uniting campus clubs, creating community!
+          </Text>
+        </Flex>
+        {children}
+      </Box>
+    </Flex>
   );
 }
