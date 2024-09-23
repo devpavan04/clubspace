@@ -1,0 +1,64 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+.next/
+build/
+dist/
+out/
+
+# Cache directories
+.cache/
+
+# Configuration files (you might want to format these, so they're not ignored by default)
+# *.config.js
+# *.config.ts
+
+# Test coverage output
+coverage/
+
+# Environment files
+.env*
+
+# Public assets
+public/
+
+# Type declaration files
+*.d.ts
+
+# Specific file types you might want to ignore
+*.min.js
+*.bundle.js
+
+# Markdown files (Prettier can format these, so they're not ignored by default)
+# *.md
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# IDE/Editor folders
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Lock files (you might want to format package.json but not the lock file)
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Generated files
+*.generated.*
+
+# Specific to your project (if any)
+.gitignore
+.prettierignore
+.eslintignore
+
+.github/
