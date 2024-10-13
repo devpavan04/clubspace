@@ -3,14 +3,17 @@
 import React, { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { loginSchema } from '@/app/(auth)/schema';
-import { OnSubmitActionResponse, LoginFormData } from '@/app/(auth)/types';
+import { loginSchema } from '@/schema/auth/schema';
+import { OnSubmitServerActionResponse } from '@/types/types';
+import { LoginFormData } from '@/types/auth/types';
 import toast from 'react-hot-toast';
 import { Text, Button, Flex, TextField, Card } from '@radix-ui/themes';
 import Link from 'next/link';
 
 interface LoginFormProps {
-  onSubmitAction: (data: LoginFormData) => Promise<OnSubmitActionResponse>;
+  onSubmitAction: (
+    data: LoginFormData,
+  ) => Promise<OnSubmitServerActionResponse>;
 }
 
 export const LoginForm: React.FC<LoginFormProps> = ({ onSubmitAction }) => {

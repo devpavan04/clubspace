@@ -1,12 +1,13 @@
 'use server';
 
-import { LoginFormData, OnSubmitActionResponse } from '@/app/(auth)/types';
-import { loginSchema } from '@/app/(auth)/schema';
+import { OnSubmitServerActionResponse } from '@/types/types';
+import { LoginFormData } from '@/types/auth/types';
+import { loginSchema } from '@/schema/auth/schema';
 
 export async function login({
   email,
   password,
-}: LoginFormData): Promise<OnSubmitActionResponse> {
+}: LoginFormData): Promise<OnSubmitServerActionResponse> {
   try {
     const validation = loginSchema.safeParse({
       email,

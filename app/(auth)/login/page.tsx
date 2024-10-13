@@ -1,5 +1,5 @@
-import { LoginForm } from '@/app/(auth)/_components/LoginForm';
-import { login } from '@/app/(auth)/_actions/login';
+import { LoginForm } from '@/components/auth/LoginForm';
+import { login } from '@/actions/auth/login';
 
 export default function LoginPage() {
   return <LoginForm onSubmitAction={login} />;

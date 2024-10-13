@@ -1,5 +1,5 @@
-import { RegisterForm } from '@/app/(auth)/_components/RegisterForm';
-import { register } from '@/app/(auth)/_actions/register';
+import { RegisterForm } from '@/components/auth/RegisterForm';
+import { register } from '@/actions/auth/register';
 
 export default function RegisterPage() {
   return <RegisterForm onSubmitAction={register} />;
