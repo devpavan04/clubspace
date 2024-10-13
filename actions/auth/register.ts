@@ -3,7 +3,7 @@
 import { OnSubmitServerActionResponse } from '@/types/types';
 import { RegisterFormData } from '@/types/auth/types';
 import { registerSchema } from '@/schema/auth/schema';
-import {db} from '@/lib/db';
+import { db } from '@/lib/db';
 import bcryptjs from 'bcryptjs';
 
 export async function register({
