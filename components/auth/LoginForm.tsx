@@ -93,7 +93,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmitAction }) => {
           </Button>
 
           <Text size='3' align='center'>
-            Don&apos;t have an account? <Link href='/register'>Sign up</Link>
+            Don&apos;t have an account? <Link href='/auth/register'>Sign up</Link>
           </Text>
         </Flex>
       </form>

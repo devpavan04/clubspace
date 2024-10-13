@@ -117,7 +117,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
             </Button>
 
             <Text size='3' align='center'>
-              Already have an account? <Link href='/login'>Sign in</Link>
+              Already have an account? <Link href='/auth/login'>Sign in</Link>
             </Text>
           </Flex>
         </Flex>

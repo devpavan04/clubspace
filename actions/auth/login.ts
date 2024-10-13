@@ -15,7 +15,7 @@ export async function login({
     });
 
     if (!validation.success) {
-      return { errorMessage: validation.error.errors[0].message };
+      return { errorMessage: validation.error.message };
     }
 
     await new Promise((resolve) => {

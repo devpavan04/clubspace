@@ -4,7 +4,7 @@ export type OnSubmitServerActionResponse = {
 };
 
 export type DataResponse<T> = {
-  data: T;
+  data: T | null;
   successMessage?: string;
   errorMessage?: string;
 };

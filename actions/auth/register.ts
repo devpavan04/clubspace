@@ -5,6 +5,7 @@ import { RegisterFormData } from '@/types/auth/types';
 import { registerSchema } from '@/schema/auth/schema';
 import { db } from '@/lib/db';
 import bcryptjs from 'bcryptjs';
+import { getUserByEmail } from '@/services/user';
 
 export async function register({
   name,
@@ -24,11 +25,7 @@ export async function register({
 
     const hashedPassword = await bcryptjs.hash(password, 10);
 
-    const existingUser = await db.user.findUnique({
-      where: {
-        email,
-      },
-    });
+    const { data: existingUser } = await getUserByEmail(email);
 
     if (existingUser) {
       return { errorMessage: 'Email already in use' };
