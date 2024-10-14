@@ -62,3 +62,7 @@ yarn.lock
 .eslintignore
 
 .github/
+
+# Prisma files
+prisma/migrations/
+prisma/schema.prisma
