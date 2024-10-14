@@ -3,6 +3,10 @@
 import { OnSubmitServerActionResponse } from '@/types/types';
 import { LoginFormData } from '@/types/auth/types';
 import { loginSchema } from '@/schema/auth/schema';
+import { signIn } from '@/auth';
+import { DEFAULT_LOGGED_IN_REDIRECT } from '@/constants/routes';
+import { AuthError } from 'next-auth';
+import { isRedirectError } from 'next/dist/client/components/redirect';
 
 export async function login({
   email,
@@ -18,14 +22,27 @@ export async function login({
       return { errorMessage: validation.error.message };
     }
 
-    await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({ email, password });
-      }, 1000);
+    await signIn('credentials', {
+      email,
+      password,
+      redirectTo: DEFAULT_LOGGED_IN_REDIRECT,
     });
 
     return { successMessage: 'Successfully logged in!' };
   } catch (error: unknown) {
+    if (isRedirectError(error)) {
+      throw error;
+    }
+
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case 'CredentialsSignin':
+          return { errorMessage: 'Invalid credentials' };
+        default:
+          return { errorMessage: 'Something went wrong!' };
+      }
+    }
+
     if (error instanceof Error) {
       return { errorMessage: error.message };
     }

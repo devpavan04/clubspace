@@ -3,7 +3,7 @@
  * These routes do not require authentication.
  * @type {string[]}
  */
-export const PUBLIC_ROUTES = ['/']; // Only root route is public
+export const PUBLIC_ROUTES: string[] = [];
 
 /**
  * An array of all the routes that are related to authentication. These routes will redirect to the login page or the dashboard depending on the user's login status.
@@ -16,6 +16,12 @@ export const AUTH_ROUTES = ['/auth/login', '/auth/register'];
  * @type {string}
  */
 export const API_AUTH_PREFIX = '/api/auth';
+
+/**
+ * The default route for the login page - '/auth/login'.
+ * @type {string}
+ */
+export const DEFAULT_LOGIN_REDIRECT = '/auth/login';
 
 /**
  * If the user is logged in, they will be redirected to '/dashboard'.
