@@ -6,7 +6,7 @@ import { loginSchema } from '@/schema/auth/schema';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 import { isRedirectError } from 'next/dist/client/components/redirect';
-import { DEFAULT_LOGGED_IN_REDIRECT } from '@/constants/routes';
+// import { DEFAULT_LOGGED_IN_REDIRECT } from '@/constants/routes';
 
 export async function login({
   email,
@@ -28,7 +28,8 @@ export async function login({
     await signIn('credentials', {
       email,
       password,
-      redirectTo: DEFAULT_LOGGED_IN_REDIRECT,
+      // redirectTo: DEFAULT_LOGGED_IN_REDIRECT,
+      redirect: false,
     });
 
     return {
