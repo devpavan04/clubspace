@@ -1,10 +1,10 @@
 import { db } from '@/lib/db';
-import { DataResponse } from '@/types/types';
+import { DatabaseQueryResponse } from '@/types/types';
 import { User } from '@prisma/client';
 
 export const getUserByEmail = async (
   email: string,
-): Promise<DataResponse<User>> => {
+): Promise<DatabaseQueryResponse<User>> => {
   try {
     const user = await db.user.findUnique({
       where: {
@@ -13,20 +13,26 @@ export const getUserByEmail = async (
     });
 
     if (!user) {
-      return { data: null, errorMessage: 'User not found' };
+      return { data: null, success: false, message: 'User not found' };
     }
 
-    return { data: user, successMessage: 'User found' };
+    return { data: user, success: true, message: 'User found' };
   } catch (error: unknown) {
     if (error instanceof Error) {
-      return { data: null, errorMessage: error.message };
+      return { data: null, success: false, message: error.message };
     }
 
-    return { data: null, errorMessage: 'An unknown error occurred' };
+    return {
+      data: null,
+      success: false,
+      message: 'An unknown error occurred',
+    };
   }
 };
 
-export const getUserById = async (id: string): Promise<DataResponse<User>> => {
+export const getUserById = async (
+  id: string,
+): Promise<DatabaseQueryResponse<User>> => {
   try {
     const user = await db.user.findUnique({
       where: {
@@ -35,43 +41,61 @@ export const getUserById = async (id: string): Promise<DataResponse<User>> => {
     });
 
     if (!user) {
-      return { data: null, errorMessage: 'User not found' };
+      return { data: null, success: false, message: 'User not found' };
     }
 
-    return { data: user, successMessage: 'User found' };
+    return { data: user, success: true, message: 'User found' };
   } catch (error: unknown) {
     if (error instanceof Error) {
-      return { data: null, errorMessage: error.message };
+      return { data: null, success: false, message: error.message };
     }
 
-    return { data: null, errorMessage: 'An unknown error occurred' };
+    return {
+      data: null,
+      success: false,
+      message: 'An unknown error occurred',
+    };
   }
 };
 
-export const getTotalUsersCount = async (): Promise<DataResponse<number>> => {
+export const getTotalUsersCount = async (): Promise<
+  DatabaseQueryResponse<number>
+> => {
   try {
     const totalUsers = await db.user.count();
 
-    return { data: totalUsers, successMessage: 'Total users fetched' };
+    return {
+      data: totalUsers,
+      success: true,
+      message: 'Total users fetched',
+    };
   } catch (error: unknown) {
     if (error instanceof Error) {
-      return { data: null, errorMessage: error.message };
+      return { data: null, success: false, message: error.message };
     }
 
-    return { data: null, errorMessage: 'An unknown error occurred' };
+    return {
+      data: null,
+      success: false,
+      message: 'An unknown error occurred',
+    };
   }
 };
 
-export const getAllUsers = async (): Promise<DataResponse<User[]>> => {
+export const getAllUsers = async (): Promise<DatabaseQueryResponse<User[]>> => {
   try {
     const users = await db.user.findMany();
 
-    return { data: users, successMessage: 'Users fetched' };
+    return { data: users, success: true, message: 'Users fetched' };
   } catch (error: unknown) {
     if (error instanceof Error) {
-      return { data: null, errorMessage: error.message };
+      return { data: null, success: false, message: error.message };
     }
 
-    return { data: null, errorMessage: 'An unknown error occurred' };
+    return {
+      data: null,
+      success: false,
+      message: 'An unknown error occurred',
+    };
   }
 };

@@ -10,10 +10,17 @@ import {
 } from '@/constants/routes';
 
 export async function middleware(req: NextRequest) {
-  const token = await getToken({
-    req,
-    secret: process.env.AUTH_SECRET,
-  });
+  let token;
+
+  try {
+    token = await getToken({
+      req,
+      secret: process.env.AUTH_SECRET,
+    });
+  } catch (error: unknown) {
+    console.error('Error verifying user token:', error);
+    return NextResponse.redirect(new URL(DEFAULT_LOGGED_OUT_REDIRECT, req.url));
+  }
 
   const { pathname } = req.nextUrl;
 

@@ -38,5 +38,5 @@ next-env.d.ts
 # Ignore all .env files
 .env*
 
-# But allow .env.example
+# Allow .env.example
 !.env.example

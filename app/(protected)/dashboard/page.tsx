@@ -13,6 +13,7 @@ export default async function DashboardPage() {
       <form
         action={async () => {
           'use server';
+
           await signOut({
             redirectTo: DEFAULT_LOGIN_REDIRECT,
           });

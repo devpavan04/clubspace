@@ -4,21 +4,21 @@ import React, { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema } from '@/schema/auth/schema';
-import { OnSubmitServerActionResponse } from '@/types/types';
+import { ServerActionResponse } from '@/types/types';
 import { LoginFormData } from '@/types/auth/types';
 import toast from 'react-hot-toast';
 import { Text, Button, Flex, TextField, Card } from '@radix-ui/themes';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { DEFAULT_LOGGED_IN_REDIRECT } from '@/constants/routes';
 
 interface LoginFormProps {
-  onSubmitAction: (
-    data: LoginFormData,
-  ) => Promise<OnSubmitServerActionResponse>;
+  submitServerAction: (data: LoginFormData) => Promise<ServerActionResponse>;
 }
 
-export const LoginForm: React.FC<LoginFormProps> = ({ onSubmitAction }) => {
+export const LoginForm: React.FC<LoginFormProps> = ({ submitServerAction }) => {
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
-
   const {
     register,
     handleSubmit,
@@ -34,12 +34,24 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmitAction }) => {
 
   const onSubmit = async (data: LoginFormData) => {
     startTransition(async () => {
-      const { successMessage, errorMessage } = await onSubmitAction(data);
+      try {
+        const { success, message } = await submitServerAction(data);
 
-      if (successMessage) toast.success(successMessage);
-      if (errorMessage) toast.error(errorMessage);
-
-      reset();
+        if (success) {
+          toast.success(message);
+          router.push(DEFAULT_LOGGED_IN_REDIRECT);
+        } else {
+          toast.error(message);
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          toast.error(error.message);
+        } else {
+          toast.error('An unexpected error occurred. Please try again.');
+        }
+      } finally {
+        reset();
+      }
     });
   };
 

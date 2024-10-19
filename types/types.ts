@@ -1,10 +1,11 @@
-export type OnSubmitServerActionResponse = {
-  successMessage?: string;
-  errorMessage?: string;
+export type ServerActionResponse<T = void> = {
+  success: boolean;
+  data?: T | null;
+  message: string;
 };
 
-export type DataResponse<T> = {
+export type DatabaseQueryResponse<T> = {
+  success: boolean;
   data: T | null;
-  successMessage?: string;
-  errorMessage?: string;
+  message: string;
 };
