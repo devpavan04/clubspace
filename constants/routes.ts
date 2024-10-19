@@ -18,12 +18,6 @@ export const AUTH_ROUTES = ['/auth/login', '/auth/register'];
 export const API_AUTH_PREFIX = '/api/auth';
 
 /**
- * The default route for the login page - '/auth/login'.
- * @type {string}
- */
-export const DEFAULT_LOGIN_REDIRECT = '/auth/login';
-
-/**
  * If the user is logged in, they will be redirected to '/dashboard'.
  * @type {string}
  */

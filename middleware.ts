@@ -10,22 +10,15 @@ import {
 } from '@/constants/routes';
 
 export async function middleware(req: NextRequest) {
-  let token;
-
-  try {
-    token = await getToken({
-      req,
-      secret: process.env.AUTH_SECRET,
-    });
-  } catch (error: unknown) {
-    console.error('Error verifying user token:', error);
-    return NextResponse.redirect(new URL(DEFAULT_LOGGED_OUT_REDIRECT, req.url));
-  }
+  const token = await getToken({
+    req,
+    secret: process.env.AUTH_SECRET,
+    secureCookie: process.env.NODE_ENV === 'production',
+  });
 
   const { pathname } = req.nextUrl;
 
   const isUserLoggedIn = !!token;
-
   const isApiAuthRoute = pathname.startsWith(API_AUTH_PREFIX);
   const isAuthRoute = AUTH_ROUTES.includes(pathname);
   const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
