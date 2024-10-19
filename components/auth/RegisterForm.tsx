@@ -13,9 +13,7 @@ import { DEFAULT_LOGIN_REDIRECT } from '@/constants/routes';
 import { useRouter } from 'next/navigation';
 
 interface RegisterFormProps {
-  onSubmitAction: (
-    data: RegisterFormData,
-  ) => Promise<ServerActionResponse>;
+  onSubmitAction: (data: RegisterFormData) => Promise<ServerActionResponse>;
 }
 
 export const RegisterForm: React.FC<RegisterFormProps> = ({
