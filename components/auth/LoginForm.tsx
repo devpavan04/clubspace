@@ -9,16 +9,16 @@ import { LoginFormData } from '@/types/auth/types';
 import toast from 'react-hot-toast';
 import { Text, Button, Flex, TextField, Card } from '@radix-ui/themes';
 import Link from 'next/link';
-import { DEFAULT_LOGGED_IN_REDIRECT } from '@/constants/routes';
 import { useRouter } from 'next/navigation';
+import { DEFAULT_LOGGED_IN_REDIRECT } from '@/constants/routes';
 
 interface LoginFormProps {
-  onSubmitAction: (data: LoginFormData) => Promise<ServerActionResponse>;
+  submitServerAction: (data: LoginFormData) => Promise<ServerActionResponse>;
 }
 
-export const LoginForm: React.FC<LoginFormProps> = ({ onSubmitAction }) => {
-  const [isPending, startTransition] = useTransition();
+export const LoginForm: React.FC<LoginFormProps> = ({ submitServerAction }) => {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
   const {
     register,
     handleSubmit,
@@ -35,14 +35,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmitAction }) => {
   const onSubmit = async (data: LoginFormData) => {
     startTransition(async () => {
       try {
-        const response = await onSubmitAction(data);
-        console.log('Server action response:', response);
-
-        if (response === undefined) {
-          throw new Error('Server action returned undefined');
-        }
-
-        const { success, message } = response;
+        const { success, message } = await submitServerAction(data);
 
         if (success) {
           toast.success(message);
@@ -51,8 +44,11 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmitAction }) => {
           toast.error(message);
         }
       } catch (error) {
-        console.error('Error in onSubmit:', error);
-        toast.error('An unexpected error occurred. Please try again.');
+        if (error instanceof Error) {
+          toast.error(error.message);
+        } else {
+          toast.error('An unexpected error occurred. Please try again.');
+        }
       } finally {
         reset();
       }

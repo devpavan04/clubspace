@@ -27,7 +27,7 @@ export default function RootLayout({
           accentColor='violet'
           panelBackground='translucent'
           radius='medium'
-          appearance='dark'
+          appearance='light'
         >
           <Toaster position='top-center' reverseOrder={false} />
           <Container

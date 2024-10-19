@@ -13,11 +13,11 @@ import { DEFAULT_LOGIN_REDIRECT } from '@/constants/routes';
 import { useRouter } from 'next/navigation';
 
 interface RegisterFormProps {
-  onSubmitAction: (data: RegisterFormData) => Promise<ServerActionResponse>;
+  submitServerAction: (data: RegisterFormData) => Promise<ServerActionResponse>;
 }
 
 export const RegisterForm: React.FC<RegisterFormProps> = ({
-  onSubmitAction,
+  submitServerAction,
 }) => {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
@@ -38,16 +38,24 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 
   const onSubmit = async (data: RegisterFormData) => {
     startTransition(async () => {
-      const { success, message } = await onSubmitAction(data);
+      try {
+        const { success, message } = await submitServerAction(data);
 
-      if (success) {
-        toast.success(message);
-        router.push(DEFAULT_LOGIN_REDIRECT);
-      } else {
-        toast.error(message);
+        if (success) {
+          toast.success(message);
+          router.push(DEFAULT_LOGIN_REDIRECT);
+        } else {
+          toast.error(message);
+        }
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          toast.error(error.message);
+        } else {
+          toast.error('An unexpected error occurred. Please try again.');
+        }
+      } finally {
+        reset();
       }
-
-      reset();
     });
   };
 

@@ -1,6 +1,6 @@
 import { RegisterForm } from '@/components/auth/RegisterForm';
-import { register } from '@/actions/auth/register';
+import { register as registerServerAction } from '@/actions/auth/register';
 
 export default async function RegisterPage() {
-  return <RegisterForm onSubmitAction={register} />;
+  return <RegisterForm submitServerAction={registerServerAction} />;
 }
