@@ -1,5 +1,5 @@
 import { auth, signOut } from '@/auth';
-import { DEFAULT_LOGIN_REDIRECT } from '@/constants/routes';
+import { DEFAULT_LOGGED_OUT_REDIRECT } from '@/constants/routes';
 import { Button } from '@radix-ui/themes';
 
 export default async function DashboardPage() {
@@ -15,7 +15,7 @@ export default async function DashboardPage() {
           'use server';
 
           await signOut({
-            redirectTo: DEFAULT_LOGIN_REDIRECT,
+            redirectTo: DEFAULT_LOGGED_OUT_REDIRECT,
           });
         }}
       >

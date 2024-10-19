@@ -32,7 +32,7 @@ export async function login({
 
     return {
       success: true,
-      message: 'Successfully logged in!',
+      message: 'Welcome! You are logged in.',
     };
   } catch (error: unknown) {
     if (isRedirectError(error)) {

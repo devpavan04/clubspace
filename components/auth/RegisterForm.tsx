@@ -9,7 +9,7 @@ import { RegisterFormData } from '@/types/auth/types';
 import toast from 'react-hot-toast';
 import { Text, Button, Flex, TextField, Card } from '@radix-ui/themes';
 import Link from 'next/link';
-import { DEFAULT_LOGIN_REDIRECT } from '@/constants/routes';
+import { DEFAULT_LOGGED_OUT_REDIRECT } from '@/constants/routes';
 import { useRouter } from 'next/navigation';
 
 interface RegisterFormProps {
@@ -43,7 +43,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 
         if (success) {
           toast.success(message);
-          router.push(DEFAULT_LOGIN_REDIRECT);
+          router.push(DEFAULT_LOGGED_OUT_REDIRECT);
         } else {
           toast.error(message);
         }
