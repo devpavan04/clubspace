@@ -36,6 +36,8 @@ export async function login({
       message: 'Successfully logged in!',
     };
   } catch (error: unknown) {
+    console.error('Login error:', error);
+
     if (isRedirectError(error)) {
       throw error;
     }
@@ -50,7 +52,6 @@ export async function login({
         default:
           return {
             success: false,
-
             message: 'Something went wrong!',
           };
       }

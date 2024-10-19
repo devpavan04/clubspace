@@ -34,16 +34,28 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmitAction }) => {
 
   const onSubmit = async (data: LoginFormData) => {
     startTransition(async () => {
-      const { success, message } = await onSubmitAction(data);
+      try {
+        const response = await onSubmitAction(data);
+        console.log('Server action response:', response);
 
-      if (success) {
-        toast.success(message);
-        router.push(DEFAULT_LOGGED_IN_REDIRECT);
-      } else {
-        toast.error(message);
+        if (response === undefined) {
+          throw new Error('Server action returned undefined');
+        }
+
+        const { success, message } = response;
+
+        if (success) {
+          toast.success(message);
+          router.push(DEFAULT_LOGGED_IN_REDIRECT);
+        } else {
+          toast.error(message);
+        }
+      } catch (error) {
+        console.error('Error in onSubmit:', error);
+        toast.error('An unexpected error occurred. Please try again.');
+      } finally {
+        reset();
       }
-
-      reset();
     });
   };
 
