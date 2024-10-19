@@ -34,10 +34,12 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmitAction }) => {
 
   const onSubmit = async (data: LoginFormData) => {
     startTransition(async () => {
-      const { errorMessage = 'Something went wrong!' } =
-        await onSubmitAction(data);
+      const response = await onSubmitAction(data);
 
-      if (errorMessage) toast.error(errorMessage);
+      if (response) {
+        if (response.errorMessage) toast.error(response.errorMessage);
+        if (response.successMessage) toast.success(response.successMessage);
+      }
 
       reset();
     });

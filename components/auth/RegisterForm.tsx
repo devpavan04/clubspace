@@ -37,13 +37,12 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 
   const onSubmit = async (data: RegisterFormData) => {
     startTransition(async () => {
-      const {
-        successMessage = 'Successfully registered!',
-        errorMessage = 'Something went wrong!',
-      } = await onSubmitAction(data);
+      const response = await onSubmitAction(data);
 
-      if (successMessage) toast.success(successMessage);
-      if (errorMessage) toast.error(errorMessage);
+      if (response) {
+        if (response.errorMessage) toast.error(response.errorMessage);
+        if (response.successMessage) toast.success(response.successMessage);
+      }
 
       reset();
     });
