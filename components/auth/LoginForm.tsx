@@ -9,6 +9,8 @@ import { LoginFormData } from '@/types/auth/types';
 import toast from 'react-hot-toast';
 import { Text, Button, Flex, TextField, Card } from '@radix-ui/themes';
 import Link from 'next/link';
+import { DEFAULT_LOGGED_IN_REDIRECT } from '@/constants/routes';
+import { redirect } from 'next/navigation';
 
 interface LoginFormProps {
   onSubmitAction: (
@@ -36,7 +38,10 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmitAction }) => {
     startTransition(async () => {
       const { successMessage, errorMessage } = await onSubmitAction(data);
 
-      if (successMessage) toast.success(successMessage);
+      if (successMessage) {
+        toast.success(successMessage);
+        redirect(DEFAULT_LOGGED_IN_REDIRECT);
+      }
       if (errorMessage) toast.error(errorMessage);
 
       reset();

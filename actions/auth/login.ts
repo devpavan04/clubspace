@@ -4,7 +4,6 @@ import { OnSubmitServerActionResponse } from '@/types/types';
 import { LoginFormData } from '@/types/auth/types';
 import { loginSchema } from '@/schema/auth/schema';
 import { signIn } from '@/auth';
-import { DEFAULT_LOGGED_IN_REDIRECT } from '@/constants/routes';
 import { AuthError } from 'next-auth';
 import { isRedirectError } from 'next/dist/client/components/redirect';
 
@@ -25,10 +24,10 @@ export async function login({
     await signIn('credentials', {
       email,
       password,
-      redirectTo: DEFAULT_LOGGED_IN_REDIRECT,
+      redirect: false,
     });
 
-    return { successMessage: 'Successfully logged in!' };
+    return { successMessage: 'Welcome! You are logged in.' };
   } catch (error: unknown) {
     if (isRedirectError(error)) {
       throw error;
