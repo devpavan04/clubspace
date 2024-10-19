@@ -1,6 +1,6 @@
 'use server';
 
-import { OnSubmitServerActionResponse } from '@/types/types';
+import { ServerActionResponse } from '@/types/types';
 import { LoginFormData } from '@/types/auth/types';
 import { loginSchema } from '@/schema/auth/schema';
 import { signIn } from '@/auth';
@@ -11,7 +11,7 @@ import { DEFAULT_LOGGED_IN_REDIRECT } from '@/constants/routes';
 export async function login({
   email,
   password,
-}: LoginFormData): Promise<OnSubmitServerActionResponse> {
+}: LoginFormData): Promise<ServerActionResponse> {
   try {
     const validation = loginSchema.safeParse({
       email,
@@ -19,7 +19,10 @@ export async function login({
     });
 
     if (!validation.success) {
-      return { errorMessage: validation.error.message };
+      return {
+        success: false,
+        message: validation.error.message,
+      };
     }
 
     await signIn('credentials', {
@@ -28,7 +31,10 @@ export async function login({
       redirectTo: DEFAULT_LOGGED_IN_REDIRECT,
     });
 
-    return { successMessage: 'Successfully logged in!' };
+    return {
+      success: true,
+      message: 'Successfully logged in!',
+    };
   } catch (error: unknown) {
     if (isRedirectError(error)) {
       throw error;
@@ -37,16 +43,29 @@ export async function login({
     if (error instanceof AuthError) {
       switch (error.type) {
         case 'CredentialsSignin':
-          return { errorMessage: 'Invalid credentials' };
+          return {
+            success: false,
+            message: 'Invalid credentials',
+          };
         default:
-          return { errorMessage: 'Something went wrong!' };
+          return {
+            success: false,
+
+            message: 'Something went wrong!',
+          };
       }
     }
 
     if (error instanceof Error) {
-      return { errorMessage: error.message };
+      return {
+        success: false,
+        message: error.message,
+      };
     }
 
-    return { errorMessage: 'Something went wrong!' };
+    return {
+      success: false,
+      message: 'Something went wrong!',
+    };
   }
 }

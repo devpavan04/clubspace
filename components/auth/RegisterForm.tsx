@@ -4,22 +4,25 @@ import React, { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { registerSchema } from '@/schema/auth/schema';
-import { OnSubmitServerActionResponse } from '@/types/types';
+import { ServerActionResponse } from '@/types/types';
 import { RegisterFormData } from '@/types/auth/types';
 import toast from 'react-hot-toast';
 import { Text, Button, Flex, TextField, Card } from '@radix-ui/themes';
 import Link from 'next/link';
+import { DEFAULT_LOGIN_REDIRECT } from '@/constants/routes';
+import { useRouter } from 'next/navigation';
 
 interface RegisterFormProps {
   onSubmitAction: (
     data: RegisterFormData,
-  ) => Promise<OnSubmitServerActionResponse>;
+  ) => Promise<ServerActionResponse>;
 }
 
 export const RegisterForm: React.FC<RegisterFormProps> = ({
   onSubmitAction,
 }) => {
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   const {
     register,
@@ -37,11 +40,13 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 
   const onSubmit = async (data: RegisterFormData) => {
     startTransition(async () => {
-      const response = await onSubmitAction(data);
+      const { success, message } = await onSubmitAction(data);
 
-      if (response) {
-        if (response.errorMessage) toast.error(response.errorMessage);
-        if (response.successMessage) toast.success(response.successMessage);
+      if (success) {
+        toast.success(message);
+        router.push(DEFAULT_LOGIN_REDIRECT);
+      } else {
+        toast.error(message);
       }
 
       reset();
