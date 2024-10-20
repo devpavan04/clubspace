@@ -1,4 +1,4 @@
-import { LoginForm } from '@/components/auth/LoginForm';
+import { LoginForm } from '@/components/auth/login-form';
 import { login as loginServerAction } from '@/actions/auth/login';
 
 export default async function LoginPage() {

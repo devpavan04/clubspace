@@ -1,6 +1,6 @@
 import { auth, signOut } from '@/auth';
+import { Button } from '@/components/ui/button';
 import { DEFAULT_LOGGED_OUT_REDIRECT } from '@/constants/routes';
-import { Button } from '@radix-ui/themes';
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -19,7 +19,7 @@ export default async function DashboardPage() {
           });
         }}
       >
-        <Button type='submit'> Sign out</Button>
+        <Button type='submit'>Sign out</Button>
       </form>
     </div>
   );
