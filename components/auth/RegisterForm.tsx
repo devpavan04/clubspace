@@ -63,9 +63,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ serverAction }) => {
   return (
     <Card className='flex flex-col gap-1'>
       <CardHeader>
-        <CardTitle>
-          Register
-        </CardTitle>
+        <CardTitle>Register</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-6'>

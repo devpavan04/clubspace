@@ -5,7 +5,6 @@ export const metadata: Metadata = {
   description: 'Settings',
 };
 
-
 export default async function SettingsPage() {
   return (
     <div>

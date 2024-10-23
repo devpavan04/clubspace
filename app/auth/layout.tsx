@@ -28,9 +28,7 @@ export default function AuthLayout({
             />
             <ThemeToggleButton />
           </div>
-          <p>
-            One platform, uniting campus clubs, creating community!
-          </p>
+          <p>One platform, uniting campus clubs, creating community!</p>
         </div>
         {children}
       </div>
