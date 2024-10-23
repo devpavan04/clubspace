@@ -15,13 +15,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-interface RegisterFormProps {
-  submitServerAction: (data: RegisterFormData) => Promise<ServerActionResponse>;
-}
+type RegisterFormProps = {
+  serverAction: (data: RegisterFormData) => Promise<ServerActionResponse>;
+};
 
-export const RegisterForm: React.FC<RegisterFormProps> = ({
-  submitServerAction,
-}) => {
+export const RegisterForm: React.FC<RegisterFormProps> = ({ serverAction }) => {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
@@ -42,7 +40,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
   const onSubmit = async (data: RegisterFormData) => {
     startTransition(async () => {
       try {
-        const { success, message } = await submitServerAction(data);
+        const { success, message } = await serverAction(data);
 
         if (success) {
           toast.success(message);
@@ -65,7 +63,9 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
   return (
     <Card className='flex flex-col gap-1'>
       <CardHeader>
-        <CardTitle className='text-2xl font-bold'>Sign up</CardTitle>
+        <CardTitle>
+          Register
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-6'>
@@ -73,7 +73,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
             <Label>Name</Label>
             <Input placeholder='John Doe' {...register('name')} type='text' />
             {errors.name?.message && (
-              <p className='text-red-600 dark:text-red-400'>
+              <p className='text-red-600 dark:text-red-400 text-sm'>
                 {errors.name.message}
               </p>
             )}
@@ -87,7 +87,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
               type='email'
             />
             {errors.email?.message && (
-              <p className='text-red-600 dark:text-red-400'>
+              <p className='text-red-600 dark:text-red-400 text-sm'>
                 {errors.email.message}
               </p>
             )}
@@ -101,7 +101,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
               type='password'
             />
             {errors.password?.message && (
-              <p className='text-red-600 dark:text-red-400'>
+              <p className='text-red-600 dark:text-red-400 text-sm'>
                 {errors.password.message}
               </p>
             )}
@@ -112,7 +112,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
               type='submit'
               disabled={(isSubmitted && !isValid) || isPending}
             >
-              Sign up
+              Register
             </Button>
 
             <p className='text-center'>
@@ -121,7 +121,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
                 href='/auth/login'
                 className='hover:underline text-gray-600 dark:text-gray-400'
               >
-                Sign in
+                Login
               </Link>
             </p>
           </div>

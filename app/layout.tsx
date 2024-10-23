@@ -2,7 +2,7 @@ import '@/styles/globals.css';
 import type { Metadata } from 'next';
 import { Toaster } from 'react-hot-toast';
 import { spaceGrotesk } from '@/config/fonts';
-import { ThemeProvider } from '@/components/theme-provider';
+import { ThemeProvider } from '@/components/ThemeProvider';
 
 export const metadata: Metadata = {
   title: 'Clubspace',
@@ -16,8 +16,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' className={spaceGrotesk.className} suppressHydrationWarning>
-      <body className='max-w-[800px] min-h-screen mx-auto'>
-        <Toaster position='top-center' reverseOrder={false} />
+      <body>
+        <Toaster position='top-right' reverseOrder={false} />
         <ThemeProvider
           attribute='class'
           defaultTheme='system'
