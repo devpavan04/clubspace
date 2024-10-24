@@ -7,16 +7,19 @@ import { loginSchema } from '@/schema/auth/schema';
 import { ServerActionResponse } from '@/types/types';
 import { LoginFormData } from '@/types/auth/types';
 import toast from 'react-hot-toast';
-import { Text, Button, Flex, TextField, Card } from '@radix-ui/themes';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { DEFAULT_LOGGED_IN_REDIRECT } from '@/constants/routes';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
-interface LoginFormProps {
-  submitServerAction: (data: LoginFormData) => Promise<ServerActionResponse>;
-}
+type LoginFormProps = {
+  serverAction: (data: LoginFormData) => Promise<ServerActionResponse>;
+};
 
-export const LoginForm: React.FC<LoginFormProps> = ({ submitServerAction }) => {
+export const LoginForm: React.FC<LoginFormProps> = ({ serverAction }) => {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const {
@@ -35,7 +38,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ submitServerAction }) => {
   const onSubmit = async (data: LoginFormData) => {
     startTransition(async () => {
       try {
-        const { success, message } = await submitServerAction(data);
+        const { success, message } = await serverAction(data);
 
         if (success) {
           toast.success(message);
@@ -56,60 +59,60 @@ export const LoginForm: React.FC<LoginFormProps> = ({ submitServerAction }) => {
   };
 
   return (
-    <Card style={{ padding: '1.6rem' }} variant='surface'>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
-      >
-        <Flex direction='column' gap='5' as='div'>
-          <Text size='6' weight='bold'>
-            Sign in 🔐
-          </Text>
-
-          <Flex direction='column' gap='2' as='div'>
-            <Text size='3' weight='medium' as='label'>
-              Email
-            </Text>
-            <TextField.Root
-              size='3'
+    <Card className='flex flex-col gap-1'>
+      <CardHeader>
+        <CardTitle>Login</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-6'>
+          <div className='flex flex-col gap-3'>
+            <Label>Email</Label>
+            <Input
               placeholder='johndoe@example.com'
               {...register('email')}
               type='email'
             />
             {errors.email?.message && (
-              <Text size='2' color='red'>
+              <p className='text-red-600 dark:text-red-400 text-sm'>
                 {errors.email.message}
-              </Text>
+              </p>
             )}
-          </Flex>
+          </div>
 
-          <Flex direction='column' gap='2' as='div'>
-            <Text size='3' weight='medium' as='label'>
-              Password
-            </Text>
-            <TextField.Root
-              size='3'
+          <div className='flex flex-col gap-3'>
+            <Label>Password</Label>
+            <Input
               placeholder='********'
               {...register('password')}
               type='password'
             />
             {errors.password?.message && (
-              <Text size='2' color='red'>
+              <p className='text-red-600 dark:text-red-400 text-sm'>
                 {errors.password.message}
-              </Text>
+              </p>
             )}
-          </Flex>
+          </div>
 
-          <Button size='3' disabled={(isSubmitted && !isValid) || isPending}>
-            Sign in
-          </Button>
+          <div className='flex flex-col gap-3'>
+            <Button
+              type='submit'
+              disabled={(isSubmitted && !isValid) || isPending}
+            >
+              Login
+            </Button>
 
-          <Text size='3' align='center'>
-            Don&apos;t have an account?{' '}
-            <Link href='/auth/register'>Sign up</Link>
-          </Text>
-        </Flex>
-      </form>
+            <p className='text-center'>
+              Don&apos;t have an account?{' '}
+              <Link
+                href='/auth/register'
+                className='hover:underline text-gray-600 dark:text-gray-400'
+              >
+                Register
+              </Link>
+            </p>
+          </div>
+        </form>
+      </CardContent>
     </Card>
   );
 };

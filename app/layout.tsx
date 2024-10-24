@@ -1,9 +1,8 @@
-import '@radix-ui/themes/styles.css';
-import '@/app/globals.css';
+import '@/styles/globals.css';
 import type { Metadata } from 'next';
-import { Container, Theme } from '@radix-ui/themes';
 import { Toaster } from 'react-hot-toast';
 import { spaceGrotesk } from '@/config/fonts';
+import { ThemeProvider } from '@/components/ThemeProvider';
 
 export const metadata: Metadata = {
   title: 'Clubspace',
@@ -16,30 +15,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' className={spaceGrotesk.variable}>
-      <body
-        style={{
-          margin: '0',
-          padding: '0',
-        }}
-      >
-        <Theme
-          accentColor='violet'
-          panelBackground='translucent'
-          radius='medium'
-          appearance='light'
+    <html lang='en' className={spaceGrotesk.className} suppressHydrationWarning>
+      <body>
+        <Toaster position='top-right' reverseOrder={false} />
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='system'
+          enableSystem
+          disableTransitionOnChange
         >
-          <Toaster position='top-center' reverseOrder={false} />
-          <Container
-            size={{
-              initial: '1',
-              sm: '2',
-              lg: '4',
-            }}
-          >
-            {children}
-          </Container>
-        </Theme>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
-import { Text, Flex, Box } from '@radix-ui/themes';
 import { archivoNarrow } from '@/config/fonts';
+import { ThemeToggleButton } from '@/components/ThemeToggleButton';
+import SparklesText from '@/components/ui/sparkles-text';
 
 export const metadata: Metadata = {
-  title: 'Authentication',
-  description: 'Login or sign up to access your account',
+  title: 'Clubspace | Auth',
+  description: 'Clubspace authentication',
 };
 
 export default function AuthLayout({
@@ -13,24 +14,24 @@ export default function AuthLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Flex justify='center' align='center' minHeight='100vh'>
-      <Box
-        width={{
-          initial: '400px',
-          sm: '500px',
-          lg: '600px',
-        }}
-      >
-        <Flex direction='column' gap='3' mb='6'>
-          <Text size='9' weight='bold' className={archivoNarrow.className}>
-            clubspace.
-          </Text>
-          <Text size='4'>
-            One platform, uniting campus clubs, creating community!
-          </Text>
-        </Flex>
+    <div className='flex flex-col items-center justify-center min-h-screen p-4'>
+      <div className='flex flex-col gap-8 w-full max-w-[600px]'>
+        <div className='flex flex-col gap-3'>
+          <div className='flex items-center justify-between'>
+            <SparklesText
+              text='Clubspace'
+              sparklesCount={2}
+              className={
+                archivoNarrow.className +
+                ' text-4xl md:text-5xl lg:text-6xl font-bold'
+              }
+            />
+            <ThemeToggleButton />
+          </div>
+          <p>One platform, uniting campus clubs, creating community!</p>
+        </div>
         {children}
-      </Box>
-    </Flex>
+      </div>
+    </div>
   );
 }
