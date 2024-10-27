@@ -7,6 +7,6 @@ export const metadata: Metadata = {
   description: 'Create an account',
 };
 
-export default async function RegisterPage() {
+export default function RegisterPage() {
   return <RegisterForm serverAction={registerServerAction} />;
 }

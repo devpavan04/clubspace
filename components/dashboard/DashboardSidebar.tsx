@@ -20,7 +20,7 @@ import { logout as logoutServerAction } from '@/actions/dashboard/logout';
 import Link from 'next/link';
 import { auth } from '@/auth';
 import { ThemeToggleButton } from '@/components/ThemeToggleButton';
-import { Button } from '../ui/button';
+import { Button } from '@/components/Button';
 
 const items = [
   {
@@ -35,7 +35,7 @@ const items = [
   },
 ];
 
-export async function DashboardSidebar() {
+export const DashboardSidebar: React.FC = async () => {
   const session = await auth();
 
   return (
@@ -84,4 +84,4 @@ export async function DashboardSidebar() {
       </SidebarFooter>
     </Sidebar>
   );
-}
+};

@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: 'Dashboard',
 };
 
-export default async function DashboardPage() {
+export default function DashboardPage() {
   return (
     <div>
       <h1>Dashboard</h1>

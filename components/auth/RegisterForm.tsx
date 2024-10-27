@@ -2,7 +2,6 @@
 
 import React, { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
-import { Loader2 } from 'lucide-react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { registerSchema } from '@/schema/auth/schema';
 import { ServerActionResponse } from '@/types/types';
@@ -11,7 +10,7 @@ import toast from 'react-hot-toast';
 import Link from 'next/link';
 import { DEFAULT_LOGGED_OUT_REDIRECT } from '@/constants/routes';
 import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -110,8 +109,9 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ serverAction }) => {
             <Button
               type='submit'
               disabled={(isSubmitted && !isValid) || isPending}
+              isLoading={isPending}
             >
-              {isPending ? <Loader2 className='animate-spin' /> : 'Register'}
+              Register
             </Button>
 
             <p className='text-center'>
