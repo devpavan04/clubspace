@@ -10,112 +10,11 @@ datasource db {
 }
 
 model User {
-  id       String   @id @default(cuid())
+  id       String @id @default(cuid())
   name     String
-  email    String   @unique
+  email    String @unique
   password String
-  role     UserRole @default(USER)
-
-  spaceMembers SpaceMember[]
-  clubMembers  ClubMember[]
-  createdClubs Club[]        @relation("ClubCreator")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-}
-
-model Space {
-  id          String  @id @default(cuid())
-  name        String
-  domain      String  @unique
-  description String?
-  logo        String? // URL to logo image
-
-  // Space settings
-  allowPublicClubs Boolean @default(true)
-  isActive         Boolean @default(true)
-
-  members SpaceMember[]
-  clubs   Club[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Club {
-  id          String  @id @default(cuid())
-  name        String
-  description String?
-  logo        String? // URL to club logo
-  isPublic    Boolean @default(true)
-
-  // Relations
-  space     Space        @relation(fields: [spaceId], references: [id], onDelete: Cascade)
-  spaceId   String
-  creator   User         @relation("ClubCreator", fields: [creatorId], references: [id])
-  creatorId String
-  members   ClubMember[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@unique([name, spaceId]) // Ensure unique club names within a space
-}
-
-model SpaceMember {
-  id     String           @id @default(cuid())
-  role   SpaceRole        @default(MEMBER)
-  status MembershipStatus @default(ACTIVE)
-
-  // Relations
-  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId  String
-  space   Space  @relation(fields: [spaceId], references: [id], onDelete: Cascade)
-  spaceId String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@unique([userId, spaceId])
-}
-
-model ClubMember {
-  id     String           @id @default(cuid())
-  role   ClubRole         @default(MEMBER)
-  status MembershipStatus @default(ACTIVE)
-
-  // Relations
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String
-  club   Club   @relation(fields: [clubId], references: [id], onDelete: Cascade)
-  clubId String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@unique([userId, clubId])
-}
-
-enum UserRole {
-  SUPER_ADMIN // Platform-wide admin
-  USER
-}
-
-enum SpaceRole {
-  ADMIN // Can manage everything in the space
-  MODERATOR // Can manage clubs but not space settings
-  MEMBER // Regular member
-}
-
-enum ClubRole {
-  ADMIN // Club creator/admin
-  MODERATOR // Can manage club content
-  MEMBER // Regular member
-}
-
-enum MembershipStatus {
-  PENDING // For email verification/approval process
-  ACTIVE
-  SUSPENDED
-  BANNED
 }
