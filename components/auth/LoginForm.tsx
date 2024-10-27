@@ -2,6 +2,7 @@
 
 import React, { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
+import { Loader2 } from 'lucide-react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema } from '@/schema/auth/schema';
 import { ServerActionResponse } from '@/types/types';
@@ -98,7 +99,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ serverAction }) => {
               type='submit'
               disabled={(isSubmitted && !isValid) || isPending}
             >
-              Login
+              {isPending ? <Loader2 className='animate-spin' /> : 'Login'}
             </Button>
 
             <p className='text-center'>
