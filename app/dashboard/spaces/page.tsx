@@ -2,14 +2,14 @@ import { Heading } from '@/components/Heading';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Dashboard | Settings',
-  description: 'Settings',
+  title: 'Dashboard | Spaces',
+  description: 'Spaces',
 };
 
-export default function SettingsPage() {
+export default function SpacesPage() {
   return (
     <div>
-      <Heading variant='h1'>Settings</Heading>
+      <Heading variant='h1'>Spaces</Heading>
     </div>
   );
 }

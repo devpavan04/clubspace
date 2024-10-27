@@ -14,6 +14,7 @@ import { Button } from '@/components/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Paragraph } from '@/components/Paragraph';
 
 type LoginFormProps = {
   serverAction: (data: LoginFormData) => Promise<ServerActionResponse>;
@@ -73,9 +74,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({ serverAction }) => {
               type='email'
             />
             {errors.email?.message && (
-              <p className='text-red-600 dark:text-red-400 text-sm'>
+              <Paragraph className='text-red-600 dark:text-red-400'>
                 {errors.email.message}
-              </p>
+              </Paragraph>
             )}
           </div>
 
@@ -87,9 +88,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({ serverAction }) => {
               type='password'
             />
             {errors.password?.message && (
-              <p className='text-red-600 dark:text-red-400 text-sm'>
+              <Paragraph className='text-red-600 dark:text-red-400'>
                 {errors.password.message}
-              </p>
+              </Paragraph>
             )}
           </div>
 
@@ -102,7 +103,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ serverAction }) => {
               Login
             </Button>
 
-            <p className='text-center'>
+            <Paragraph className='text-center'>
               Don&apos;t have an account?{' '}
               <Link
                 href='/auth/register'
@@ -110,7 +111,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ serverAction }) => {
               >
                 Register
               </Link>
-            </p>
+            </Paragraph>
           </div>
         </form>
       </CardContent>

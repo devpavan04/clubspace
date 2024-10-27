@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { archivoNarrow } from '@/config/fonts';
 import { ThemeToggleButton } from '@/components/ThemeToggleButton';
 import SparklesText from '@/components/ui/sparkles-text';
+import { Paragraph } from '@/components/Paragraph';
 
 export const metadata: Metadata = {
   title: 'Clubspace | Auth',
@@ -28,7 +29,9 @@ export default function AuthLayout({
             />
             <ThemeToggleButton />
           </div>
-          <p>One platform, uniting campus clubs, creating community!</p>
+          <Paragraph>
+            One platform, uniting campus clubs, creating community!
+          </Paragraph>
         </div>
         {children}
       </div>

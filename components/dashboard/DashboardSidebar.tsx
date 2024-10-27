@@ -9,7 +9,7 @@ import {
   SidebarGroupContent,
   SidebarFooter,
 } from '@/components/ui/sidebar';
-import { ChevronsUpDown, Home, Settings } from 'lucide-react';
+import { ChevronsUpDown, Settings, Globe, LayoutGrid } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,12 +21,18 @@ import Link from 'next/link';
 import { auth } from '@/auth';
 import { ThemeToggleButton } from '@/components/ThemeToggleButton';
 import { Button } from '@/components/Button';
+import { Span } from '@/components/Span';
 
 const items = [
   {
-    title: 'Home',
+    title: 'Overview',
     url: '/dashboard',
-    icon: Home,
+    icon: LayoutGrid,
+  },
+  {
+    title: 'Spaces',
+    url: '/dashboard/spaces',
+    icon: Globe,
   },
   {
     title: 'Settings',
@@ -50,7 +56,7 @@ export const DashboardSidebar: React.FC = async () => {
                   size='default'
                   className='flex items-center justify-between px-3 py-2 w-full'
                 >
-                  <p className='text-sm'>{session?.user?.email}</p>
+                  <Span>{session?.user?.email}</Span>
                   <ChevronsUpDown size={14} />
                 </Button>
               </DropdownMenuTrigger>
@@ -70,7 +76,7 @@ export const DashboardSidebar: React.FC = async () => {
                   <SidebarMenuButton asChild>
                     <Link href={item.url}>
                       <item.icon />
-                      <span>{item.title}</span>
+                      <Span>{item.title}</Span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

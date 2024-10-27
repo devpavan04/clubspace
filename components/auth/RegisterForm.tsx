@@ -14,6 +14,7 @@ import { Button } from '@/components/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Paragraph } from '@/components/Paragraph';
 
 type RegisterFormProps = {
   serverAction: (data: RegisterFormData) => Promise<ServerActionResponse>;
@@ -71,9 +72,9 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ serverAction }) => {
             <Label>Name</Label>
             <Input placeholder='John Doe' {...register('name')} type='text' />
             {errors.name?.message && (
-              <p className='text-red-600 dark:text-red-400 text-sm'>
+              <Paragraph className='text-red-600 dark:text-red-400'>
                 {errors.name.message}
-              </p>
+              </Paragraph>
             )}
           </div>
 
@@ -85,9 +86,9 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ serverAction }) => {
               type='email'
             />
             {errors.email?.message && (
-              <p className='text-red-600 dark:text-red-400 text-sm'>
+              <Paragraph className='text-red-600 dark:text-red-400'>
                 {errors.email.message}
-              </p>
+              </Paragraph>
             )}
           </div>
 
@@ -99,9 +100,9 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ serverAction }) => {
               type='password'
             />
             {errors.password?.message && (
-              <p className='text-red-600 dark:text-red-400 text-sm'>
+              <Paragraph className='text-red-600 dark:text-red-400'>
                 {errors.password.message}
-              </p>
+              </Paragraph>
             )}
           </div>
 
@@ -114,7 +115,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ serverAction }) => {
               Register
             </Button>
 
-            <p className='text-center'>
+            <Paragraph className='text-center'>
               Already have an account?{' '}
               <Link
                 href='/auth/login'
@@ -122,7 +123,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ serverAction }) => {
               >
                 Login
               </Link>
-            </p>
+            </Paragraph>
           </div>
         </form>
       </CardContent>

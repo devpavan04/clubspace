@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { Heading } from '@/components/Heading';
 
 export const metadata: Metadata = {
   title: 'Dashboard',
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
 export default function DashboardPage() {
   return (
     <div>
-      <h1>Dashboard</h1>
+      <Heading variant='h1'>Overview</Heading>
     </div>
   );
 }
