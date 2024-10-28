@@ -29,6 +29,7 @@ import { ThemeToggleButton } from '@/components/ThemeToggleButton';
 import { Button } from '@/components/Button';
 import { Span } from '@/components/Span';
 import { getUserById } from '@/services/user';
+import { Icon } from '@/components/ui/Icon';
 
 const items = [
   {
@@ -62,17 +63,16 @@ export const DashboardSidebar: React.FC = async () => {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant='outline'
-                  size='default'
-                  className='flex items-center justify-between px-2 py-5 w-full font-medium'
+                  className='flex items-center justify-between gap-1 w-full px-2 py-5'
                 >
-                  <div className='flex items-center gap-2'>
-                    <CircleUser />
-                    <Span>{name}</Span>
+                  <div className='flex items-center gap-[6px]'>
+                    <Icon icon={CircleUser} />
+                    <Span className='font-medium'>{name}</Span>
                   </div>
-                  <ChevronsUpDown />
+                  <Icon icon={ChevronsUpDown} />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className='w-[--radix-popper-anchor-width] p-1'>
+              <DropdownMenuContent className='p-0 w-[--radix-popper-anchor-width]'>
                 <LogoutDropdownMenuItem serverAction={logoutServerAction} />
               </DropdownMenuContent>
             </DropdownMenu>
@@ -87,7 +87,7 @@ export const DashboardSidebar: React.FC = async () => {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <Link href={item.url}>
-                      <item.icon />
+                      <Icon icon={item.icon} />
                       <Span>{item.title}</Span>
                     </Link>
                   </SidebarMenuButton>
