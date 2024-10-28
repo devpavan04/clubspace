@@ -3,6 +3,8 @@ import { archivoNarrow } from '@/config/fonts';
 import { ThemeToggleButton } from '@/components/ThemeToggleButton';
 import SparklesText from '@/components/ui/sparkles-text';
 import { Paragraph } from '@/components/Paragraph';
+import { DotPattern } from '@/components/ui/dot-pattern';
+import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'Clubspace | Auth',
@@ -33,6 +35,16 @@ export default function AuthLayout({
             One platform, uniting campus clubs, creating community!
           </Paragraph>
         </div>
+        <DotPattern
+          width={20}
+          height={20}
+          cx={1}
+          cy={1}
+          cr={1}
+          className={cn(
+            '[mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] ',
+          )}
+        />
         {children}
       </div>
     </div>
