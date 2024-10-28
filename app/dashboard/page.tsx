@@ -1,14 +1,15 @@
 import { Metadata } from 'next';
+import { Heading } from '@/components/Heading';
 
 export const metadata: Metadata = {
   title: 'Dashboard',
   description: 'Dashboard',
 };
 
-export default async function DashboardPage() {
+export default function DashboardPage() {
   return (
     <div>
-      <h1>Dashboard</h1>
+      <Heading variant='h2'>Overview</Heading>
     </div>
   );
 }

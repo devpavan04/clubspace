@@ -1,3 +1,4 @@
+import { Heading } from '@/components/Heading';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -5,10 +6,10 @@ export const metadata: Metadata = {
   description: 'Settings',
 };
 
-export default async function SettingsPage() {
+export default function SettingsPage() {
   return (
     <div>
-      <h1>Settings</h1>
+      <Heading variant='h2'>Settings</Heading>
     </div>
   );
 }

@@ -9,7 +9,13 @@ import {
   SidebarGroupContent,
   SidebarFooter,
 } from '@/components/ui/sidebar';
-import { ChevronsUpDown, Home, Settings } from 'lucide-react';
+import {
+  ChevronsUpDown,
+  Settings,
+  Globe,
+  LayoutGrid,
+  CircleUser,
+} from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,13 +26,21 @@ import { logout as logoutServerAction } from '@/actions/dashboard/logout';
 import Link from 'next/link';
 import { auth } from '@/auth';
 import { ThemeToggleButton } from '@/components/ThemeToggleButton';
-import { Button } from '../ui/button';
+import { Button } from '@/components/Button';
+import { Span } from '@/components/Span';
+import { getUserById } from '@/services/user';
+import { Icon } from '@/components/ui/Icon';
 
 const items = [
   {
-    title: 'Home',
+    title: 'Overview',
     url: '/dashboard',
-    icon: Home,
+    icon: LayoutGrid,
+  },
+  {
+    title: 'Spaces',
+    url: '/dashboard/spaces',
+    icon: Globe,
   },
   {
     title: 'Settings',
@@ -35,8 +49,10 @@ const items = [
   },
 ];
 
-export async function DashboardSidebar() {
+export const DashboardSidebar: React.FC = async () => {
   const session = await auth();
+  const { success, data: user } = await getUserById(session?.user?.id ?? '');
+  const name = success ? `${user?.firstName} ${user?.lastName}` : '';
 
   return (
     <Sidebar>
@@ -47,14 +63,16 @@ export async function DashboardSidebar() {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant='outline'
-                  size='default'
-                  className='flex items-center justify-between px-3 py-2 w-full'
+                  className='flex items-center justify-between gap-1 w-full px-2 py-5'
                 >
-                  <p className='text-sm'>{session?.user?.email}</p>
-                  <ChevronsUpDown size={14} />
+                  <div className='flex items-center gap-[6px]'>
+                    <Icon icon={CircleUser} />
+                    <Span className='font-medium'>{name}</Span>
+                  </div>
+                  <Icon icon={ChevronsUpDown} />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className='w-[--radix-popper-anchor-width]'>
+              <DropdownMenuContent className='p-0 w-[--radix-popper-anchor-width]'>
                 <LogoutDropdownMenuItem serverAction={logoutServerAction} />
               </DropdownMenuContent>
             </DropdownMenu>
@@ -69,8 +87,8 @@ export async function DashboardSidebar() {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <Link href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
+                      <Icon icon={item.icon} />
+                      <Span>{item.title}</Span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -84,4 +102,4 @@ export async function DashboardSidebar() {
       </SidebarFooter>
     </Sidebar>
   );
-}
+};

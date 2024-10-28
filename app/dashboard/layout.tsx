@@ -7,10 +7,10 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SidebarProvider className='p-4'>
+    <SidebarProvider className='px-4 py-6 h-screen overflow-hidden'>
       <DashboardSidebar />
       <SidebarTrigger />
-      <main className='w-full md:w-[500px] lg:w-[600px] xl:w-[800px] 2xl:w-[1000px] min-h-screen mx-auto px-4'>
+      <main className='w-full md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl h-[calc(100vh-3rem)] overflow-y-auto mx-auto px-4 scrollbar-hidden'>
         {children}
       </main>
     </SidebarProvider>

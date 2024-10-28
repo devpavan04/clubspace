@@ -6,6 +6,8 @@ import toast from 'react-hot-toast';
 import { ServerActionResponse } from '@/types/types';
 import { DEFAULT_LOGGED_OUT_REDIRECT } from '@/constants/routes';
 import { useRouter } from 'next/navigation';
+import { Span } from '@/components/Span';
+import { Icon } from '@/components/ui/Icon';
 
 type LogoutDropdownMenuItemProps = {
   serverAction: () => Promise<ServerActionResponse>;
@@ -36,9 +38,9 @@ export const LogoutDropdownMenuItem: React.FC<LogoutDropdownMenuItemProps> = ({
   };
 
   return (
-    <DropdownMenuItem onClick={handleLogout}>
-      <LogOut />
-      <span>Logout</span>
+    <DropdownMenuItem onClick={handleLogout} className='cursor-pointer'>
+      <Icon icon={LogOut} />
+      <Span>Logout</Span>
     </DropdownMenuItem>
   );
 };

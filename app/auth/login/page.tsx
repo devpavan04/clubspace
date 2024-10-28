@@ -7,6 +7,6 @@ export const metadata: Metadata = {
   description: 'Login to your account',
 };
 
-export default async function LoginPage() {
+export default function LoginPage() {
   return <LoginForm serverAction={loginServerAction} />;
 }
