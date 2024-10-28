@@ -38,10 +38,7 @@ export const LogoutDropdownMenuItem: React.FC<LogoutDropdownMenuItemProps> = ({
   };
 
   return (
-    <DropdownMenuItem
-      onClick={handleLogout}
-      className='cursor-pointer'
-    >
+    <DropdownMenuItem onClick={handleLogout} className='cursor-pointer'>
       <Icon icon={LogOut} />
       <Span>Logout</Span>
     </DropdownMenuItem>
