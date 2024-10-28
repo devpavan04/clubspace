@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function DashboardPage() {
   return (
     <div>
-      <Heading variant='h1'>Overview</Heading>
+      <Heading variant='h2'>Overview</Heading>
     </div>
   );
 }

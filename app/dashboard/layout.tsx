@@ -7,10 +7,10 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SidebarProvider className='p-4'>
+    <SidebarProvider className='px-4 py-6'>
       <DashboardSidebar />
       <SidebarTrigger />
-      <main className='w-full md:w-[500px] lg:w-[600px] xl:w-[800px] 2xl:w-[1000px] min-h-screen mx-auto px-4'>
+      <main className='w-full md:max-w-[500px] lg:max-w-[600px] xl:max-w-[800px] 2xl:max-w-[1000px] min-h-screen mx-auto px-4'>
         {children}
       </main>
     </SidebarProvider>

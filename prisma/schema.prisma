@@ -9,11 +9,99 @@ datasource db {
   directUrl = env("NEON_DATABASE_URL_NON_POOLING")
 }
 
+enum UserRole {
+  // CRUD on spaces and clubs
+  ADMIN
+  // CRUD on clubs (created by them)
+  CLUB_OWNER
+  // Post, Like and Comment inside clubs (that they are part of)
+  CLUB_MEMBER
+  // Read access to spaces and clubs (ex: view posts, like and comment on posts, explore clubs etc)
+  USER
+}
+
 model User {
-  id       String @id @default(cuid())
-  name     String
-  email    String @unique
-  password String
+  id        String @id @default(cuid())
+  firstName String
+  lastName  String
+  email     String @unique
+  password  String
+
+  // Space relationships
+  joinedSpaces Space[]     @relation("SpaceMember")
+  ownedSpaces  Space[]     @relation("SpaceOwner")
+  spaceRoles   SpaceRole[]
+
+  // Club relationships
+  joinedClubs Club[]     @relation("ClubMember")
+  ownedClubs  Club[]     @relation("ClubOwner")
+  clubRoles   ClubRole[]
+
+  // Global role for system-wide permissions
+  globalRole UserRole @default(USER)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SpaceRole {
+  id      String   @id @default(cuid())
+  role    UserRole
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  String
+  space   Space    @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+  spaceId String
+
+  @@unique([userId, spaceId])
+  @@index([userId])
+  @@index([spaceId])
+}
+
+model ClubRole {
+  id     String   @id @default(cuid())
+  role   UserRole
+  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  club   Club     @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  clubId String
+
+  @@unique([userId, clubId])
+  @@index([userId])
+  @@index([clubId])
+}
+
+model Space {
+  id     String @id @default(cuid())
+  name   String
+  domain String
+
+  members User[] @relation("SpaceMember")
+
+  clubs Club[]
+
+  owner   User   @relation("SpaceOwner", fields: [ownerId], references: [id])
+  ownerId String
+
+  roles SpaceRole[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Club {
+  id          String @id @default(cuid())
+  name        String
+  description String
+
+  space   Space  @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+  spaceId String
+
+  members User[] @relation("ClubMember")
+
+  owner   User   @relation("ClubOwner", fields: [ownerId], references: [id])
+  ownerId String
+
+  roles ClubRole[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -15,6 +15,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Paragraph } from '@/components/Paragraph';
+import { RESPONSIVE_TEXT_SIZES } from '@/constants/classnames';
 
 type RegisterFormProps = {
   serverAction: (data: RegisterFormData) => Promise<ServerActionResponse>;
@@ -32,7 +33,8 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ serverAction }) => {
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      name: '',
+      firstName: '',
+      lastName: '',
       email: '',
       password: '',
     },
@@ -64,26 +66,47 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ serverAction }) => {
   return (
     <Card className='flex flex-col gap-1'>
       <CardHeader>
-        <CardTitle>Register</CardTitle>
+        <CardTitle className={RESPONSIVE_TEXT_SIZES}>Register</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-6'>
           <div className='flex flex-col gap-3'>
-            <Label>Name</Label>
-            <Input placeholder='John Doe' {...register('name')} type='text' />
-            {errors.name?.message && (
+            <Label className={RESPONSIVE_TEXT_SIZES}>First Name</Label>
+            <Input
+              placeholder='John Doe'
+              {...register('firstName')}
+              type='text'
+              className={RESPONSIVE_TEXT_SIZES}
+            />
+            {errors.firstName?.message && (
               <Paragraph className='text-red-600 dark:text-red-400'>
-                {errors.name.message}
+                {errors.firstName.message}
               </Paragraph>
             )}
           </div>
 
           <div className='flex flex-col gap-3'>
-            <Label>Email</Label>
+            <Label className={RESPONSIVE_TEXT_SIZES}>Last Name</Label>
+            <Input
+              placeholder='John Doe'
+              {...register('lastName')}
+              type='text'
+              className={RESPONSIVE_TEXT_SIZES}
+            />
+            {errors.lastName?.message && (
+              <Paragraph className='text-red-600 dark:text-red-400'>
+                {errors.lastName.message}
+              </Paragraph>
+            )}
+          </div>
+
+          <div className='flex flex-col gap-3'>
+            <Label className={RESPONSIVE_TEXT_SIZES}>Email</Label>
             <Input
               placeholder='johndoe@example.com'
               {...register('email')}
               type='email'
+              className={RESPONSIVE_TEXT_SIZES}
             />
             {errors.email?.message && (
               <Paragraph className='text-red-600 dark:text-red-400'>
@@ -93,11 +116,12 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ serverAction }) => {
           </div>
 
           <div className='flex flex-col gap-3'>
-            <Label>Password</Label>
+            <Label className={RESPONSIVE_TEXT_SIZES}>Password</Label>
             <Input
               placeholder='********'
               {...register('password')}
               type='password'
+              className={RESPONSIVE_TEXT_SIZES}
             />
             {errors.password?.message && (
               <Paragraph className='text-red-600 dark:text-red-400'>
@@ -111,6 +135,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ serverAction }) => {
               type='submit'
               disabled={(isSubmitted && !isValid) || isPending}
               isLoading={isPending}
+              className={RESPONSIVE_TEXT_SIZES}
             >
               Register
             </Button>

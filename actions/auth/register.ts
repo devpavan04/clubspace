@@ -8,13 +8,15 @@ import bcryptjs from 'bcryptjs';
 import { getUserByEmail } from '@/services/user';
 
 export async function register({
-  name,
+  firstName,
+  lastName,
   email,
   password,
 }: RegisterFormData): Promise<ServerActionResponse> {
   try {
     const validation = registerSchema.safeParse({
-      name,
+      firstName,
+      lastName,
       email,
       password,
     });
@@ -39,7 +41,8 @@ export async function register({
 
     await db.user.create({
       data: {
-        name: name,
+        firstName,
+        lastName,
         email: email,
         password: hashedPassword,
       },
