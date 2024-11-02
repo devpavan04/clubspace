@@ -1,13 +1,11 @@
 'use client';
 
-import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { LogOut } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { ServerActionResponse } from '@/types/types';
 import { DEFAULT_LOGGED_OUT_REDIRECT } from '@/constants/routes';
 import { useRouter } from 'next/navigation';
-import { Span } from '@/components/Span';
-import { Icon } from '@/components/ui/Icon';
+import { Button } from '@/components/Button';
 
 type LogoutDropdownMenuItemProps = {
   serverAction: () => Promise<ServerActionResponse>;
@@ -38,9 +36,9 @@ export const LogoutDropdownMenuItem: React.FC<LogoutDropdownMenuItemProps> = ({
   };
 
   return (
-    <DropdownMenuItem onClick={handleLogout} className='cursor-pointer'>
-      <Icon icon={LogOut} />
-      <Span>Logout</Span>
-    </DropdownMenuItem>
+    <Button variant='default' size='lg' onClick={handleLogout}>
+      <LogOut className='!w-4 !h-4' />
+      <span>Logout</span>
+    </Button>
   );
 };

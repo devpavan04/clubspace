@@ -1,120 +1,57 @@
 import { Heading } from '@/components/Heading';
-import { Paragraph } from '@/components/Paragraph';
 import { Metadata } from 'next';
+import { auth } from '@/auth';
+import { redirect } from 'next/navigation';
+import { getSpacesByUserId } from '@/services/space';
+import { Globe, Plus, Space } from 'lucide-react';
+import { Button } from '@/components/Button';
+import { Card, CardContent } from '@/components/ui/card';
 
 export const metadata: Metadata = {
   title: 'Dashboard | Spaces',
   description: 'Spaces',
 };
 
-export default function SpacesPage() {
+export default async function SpacesPage() {
+  const session = await auth();
+
+  if (!session?.user?.id) {
+    redirect('/login');
+  }
+
+  const { data } = await getSpacesByUserId(session.user.id);
+  console.log(data);
+
   return (
     <div>
-      <Heading variant='h2'>Spaces</Heading>
-      <Paragraph>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat, iure
-        illum. Quibusdam doloremque quam sunt labore iure eum, harum corporis
-        laudantium architecto, vel rem autem sint possimus molestiae ea ex, quos
-        praesentium! Quidem facere porro rem laudantium, voluptatibus enim
-        molestias rerum excepturi amet atque iusto inventore ex sit placeat sed
-        quam repellendus neque ipsum fugit, recusandae illo a optio? Distinctio
-        error autem inventore pariatur adipisci sit velit rem, minima veniam
-        blanditiis. Cumque rerum dolore soluta provident minus magni molestiae
-        fugiat, distinctio facere autem vitae quisquam ratione ab et voluptatem
-        quae temporibus at quam. Enim inventore mollitia totam repellendus nobis
-        perspiciatis. Eum deleniti possimus quae saepe aliquam quam odit, eius
-        sapiente rem sit labore sequi consequuntur provident dignissimos. Neque
-        maiores reprehenderit a quod veniam fuga id sapiente error quis
-        consequuntur mollitia quibusdam ipsum voluptates labore ratione,
-        excepturi explicabo. Ipsam neque facere beatae eius natus repudiandae
-        aperiam qui quibusdam error rem provident ea culpa soluta omnis
-        exercitationem eos, aspernatur quidem quas voluptatum obcaecati placeat
-        fugit! Mollitia non pariatur dolorum nobis error, deleniti id eum est
-        iure fugit. Molestias corporis odio possimus tempora velit, fugiat
-        obcaecati at suscipit. Reprehenderit quas veritatis, quo facere nemo
-        voluptatum corrupti, minima in sed iure deleniti, commodi nisi animi ab.
-        Repellendus optio ratione aperiam aliquam recusandae molestiae unde rem
-        aut laboriosam? Itaque magnam omnis laborum ut vero. Assumenda hic
-        numquam necessitatibus, eligendi cum dignissimos recusandae ullam sit
-        amet quod aperiam facilis reprehenderit! Qui expedita hic deleniti odit
-        corrupti? Possimus earum non nisi reprehenderit ullam deleniti,
-        accusantium voluptatum quia illum magni corporis ipsa ad, vel maxime
-        quidem at asperiores veniam nam aspernatur vero repellendus quisquam
-        nulla nemo quos! Minima, deleniti beatae accusantium eligendi aliquid
-        ducimus esse nihil quaerat, natus pariatur, iure molestias deserunt
-        aspernatur odit quibusdam repellat rem dolor amet corrupti sit numquam
-        in dolores necessitatibus tempora? Tempora, hic!
-      </Paragraph>
+      <Heading variant='h2' className='flex items-center gap-2'>
+        <Globe className='!w-6 !h-6' /> Spaces
+      </Heading>
 
-      <Paragraph>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat, iure
-        illum. Quibusdam doloremque quam sunt labore iure eum, harum corporis
-        laudantium architecto, vel rem autem sint possimus molestiae ea ex, quos
-        praesentium! Quidem facere porro rem laudantium, voluptatibus enim
-        molestias rerum excepturi amet atque iusto inventore ex sit placeat sed
-        quam repellendus neque ipsum fugit, recusandae illo a optio? Distinctio
-        error autem inventore pariatur adipisci sit velit rem, minima veniam
-        blanditiis. Cumque rerum dolore soluta provident minus magni molestiae
-        fugiat, distinctio facere autem vitae quisquam ratione ab et voluptatem
-        quae temporibus at quam. Enim inventore mollitia totam repellendus nobis
-        perspiciatis. Eum deleniti possimus quae saepe aliquam quam odit, eius
-        sapiente rem sit labore sequi consequuntur provident dignissimos. Neque
-        maiores reprehenderit a quod veniam fuga id sapiente error quis
-        consequuntur mollitia quibusdam ipsum voluptates labore ratione,
-        excepturi explicabo. Ipsam neque facere beatae eius natus repudiandae
-        aperiam qui quibusdam error rem provident ea culpa soluta omnis
-        exercitationem eos, aspernatur quidem quas voluptatum obcaecati placeat
-        fugit! Mollitia non pariatur dolorum nobis error, deleniti id eum est
-        iure fugit. Molestias corporis odio possimus tempora velit, fugiat
-        obcaecati at suscipit. Reprehenderit quas veritatis, quo facere nemo
-        voluptatum corrupti, minima in sed iure deleniti, commodi nisi animi ab.
-        Repellendus optio ratione aperiam aliquam recusandae molestiae unde rem
-        aut laboriosam? Itaque magnam omnis laborum ut vero. Assumenda hic
-        numquam necessitatibus, eligendi cum dignissimos recusandae ullam sit
-        amet quod aperiam facilis reprehenderit! Qui expedita hic deleniti odit
-        corrupti? Possimus earum non nisi reprehenderit ullam deleniti,
-        accusantium voluptatum quia illum magni corporis ipsa ad, vel maxime
-        quidem at asperiores veniam nam aspernatur vero repellendus quisquam
-        nulla nemo quos! Minima, deleniti beatae accusantium eligendi aliquid
-        ducimus esse nihil quaerat, natus pariatur, iure molestias deserunt
-        aspernatur odit quibusdam repellat rem dolor amet corrupti sit numquam
-        in dolores necessitatibus tempora? Tempora, hic!
-      </Paragraph>
+      {data?.length === 0 && (
+        <Card className='border-dashed mt-6'>
+          <CardContent className='flex flex-col items-center justify-center space-y-4 py-12 text-center'>
+            <div className='rounded-full bg-primary/15 p-3'>
+              <Space className='!w-5 !h-5 text-primary' />
+            </div>
+            <div className='space-y-2'>
+              <h2 className='text-lg md:text-xl font-semibold tracking-tight'>
+                No Spaces Found
+              </h2>
+              <p className='text-sm text-muted-foreground max-w-md mx-auto'>
+                It seems that you haven&apos;t created any spaces yet. Start by
+                creating your first space to begin your journey.
+              </p>
+            </div>
+            <Button size='lg'>
+              <Plus className='!w-4 !h-4' />
+              Create Space
+            </Button>
+          </CardContent>
+        </Card>
+      )}
 
-      <Paragraph>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat, iure
-        illum. Quibusdam doloremque quam sunt labore iure eum, harum corporis
-        laudantium architecto, vel rem autem sint possimus molestiae ea ex, quos
-        praesentium! Quidem facere porro rem laudantium, voluptatibus enim
-        molestias rerum excepturi amet atque iusto inventore ex sit placeat sed
-        quam repellendus neque ipsum fugit, recusandae illo a optio? Distinctio
-        error autem inventore pariatur adipisci sit velit rem, minima veniam
-        blanditiis. Cumque rerum dolore soluta provident minus magni molestiae
-        fugiat, distinctio facere autem vitae quisquam ratione ab et voluptatem
-        quae temporibus at quam. Enim inventore mollitia totam repellendus nobis
-        perspiciatis. Eum deleniti possimus quae saepe aliquam quam odit, eius
-        sapiente rem sit labore sequi consequuntur provident dignissimos. Neque
-        maiores reprehenderit a quod veniam fuga id sapiente error quis
-        consequuntur mollitia quibusdam ipsum voluptates labore ratione,
-        excepturi explicabo. Ipsam neque facere beatae eius natus repudiandae
-        aperiam qui quibusdam error rem provident ea culpa soluta omnis
-        exercitationem eos, aspernatur quidem quas voluptatum obcaecati placeat
-        fugit! Mollitia non pariatur dolorum nobis error, deleniti id eum est
-        iure fugit. Molestias corporis odio possimus tempora velit, fugiat
-        obcaecati at suscipit. Reprehenderit quas veritatis, quo facere nemo
-        voluptatum corrupti, minima in sed iure deleniti, commodi nisi animi ab.
-        Repellendus optio ratione aperiam aliquam recusandae molestiae unde rem
-        aut laboriosam? Itaque magnam omnis laborum ut vero. Assumenda hic
-        numquam necessitatibus, eligendi cum dignissimos recusandae ullam sit
-        amet quod aperiam facilis reprehenderit! Qui expedita hic deleniti odit
-        corrupti? Possimus earum non nisi reprehenderit ullam deleniti,
-        accusantium voluptatum quia illum magni corporis ipsa ad, vel maxime
-        quidem at asperiores veniam nam aspernatur vero repellendus quisquam
-        nulla nemo quos! Minima, deleniti beatae accusantium eligendi aliquid
-        ducimus esse nihil quaerat, natus pariatur, iure molestias deserunt
-        aspernatur odit quibusdam repellat rem dolor amet corrupti sit numquam
-        in dolores necessitatibus tempora? Tempora, hic!
-      </Paragraph>
+      {data?.map((space) => <div key={space.id}>{space.name}</div>)}
     </div>
   );
 }
