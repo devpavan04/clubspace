@@ -14,7 +14,6 @@ import { LogoutDropdownMenuItem } from '@/components/dashboard/LogoutDropdownMen
 import { logout as logoutServerAction } from '@/actions/dashboard/logout';
 import Link from 'next/link';
 import { ThemeToggleButton } from '@/components/ThemeToggleButton';
-import { Heading } from '@/components/Heading';
 import { archivoNarrow } from '@/config/fonts';
 
 const items = [
@@ -39,9 +38,9 @@ export const DashboardSidebar: React.FC = () => {
   return (
     <Sidebar>
       <SidebarHeader className='pt-4'>
-        <Heading variant='h1' className={archivoNarrow.className + ' px-2'}>
+        <p className={archivoNarrow.className + ' px-2 text-4xl font-bold'}>
           clubspace.
-        </Heading>
+        </p>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>

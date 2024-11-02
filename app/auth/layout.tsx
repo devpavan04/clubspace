@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { archivoNarrow } from '@/config/fonts';
 import { ThemeToggleButton } from '@/components/ThemeToggleButton';
-import SparklesText from '@/components/ui/sparkles-text';
 import { DotPattern } from '@/components/ui/dot-pattern';
 import { cn } from '@/lib/utils';
 
@@ -20,13 +19,9 @@ export default function AuthLayout({
       <div className='flex flex-col gap-8 w-full max-w-[600px]'>
         <div className='flex flex-col gap-3'>
           <div className='flex items-center justify-between'>
-            <SparklesText
-              text='clubspace.'
-              sparklesCount={4}
-              className={
-                archivoNarrow.className + ' text-4xl md:text-5xl lg:text-6xl'
-              }
-            />
+            <p className={archivoNarrow.className + ' text-5xl font-bold'}>
+              clubspace.
+            </p>
             <ThemeToggleButton />
           </div>
           <p>One platform, uniting campus clubs, creating community!</p>
